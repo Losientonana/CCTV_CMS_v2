@@ -1,7 +1,12 @@
 plugins {
     id 'java'
+<<<<<<< HEAD
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
+=======
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+>>>>>>> 1af0209 (cctv_v3)
 }
 
 group = 'org.example'
@@ -13,11 +18,21 @@ java {
     }
 }
 
+<<<<<<< HEAD
+=======
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+>>>>>>> 1af0209 (cctv_v3)
 repositories {
     mavenCentral()
 }
 
 dependencies {
+<<<<<<< HEAD
 //    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -27,6 +42,22 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
     compileOnly 'org.projectlombok:lombok:1.18.24' // 최신 버전으로 업데이트하세요
+=======
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+>>>>>>> 1af0209 (cctv_v3)
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

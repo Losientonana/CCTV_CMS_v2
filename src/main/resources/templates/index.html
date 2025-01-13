@@ -1,0 +1,528 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko">-->
+<!--<head>-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />-->
+<!--    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />-->
+<!--    <title>CCTV CMS</title>-->
+<!--    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />-->
+<!--    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>-->
+<!--    <script>-->
+<!--        // CCTV 이미지 업데이트 함수-->
+<!--        function fetchLatestImages() {-->
+<!--            fetch('/api/images')-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    console.log("Fetched latest images:", data);-->
+<!--                    for (const [cctvNum, imageData] of Object.entries(data)) {-->
+<!--                        const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);-->
+<!--                        if (cctvElement) {-->
+<!--                            const newImageUrl = `url(${imageData})`;-->
+<!--                            cctvElement.style.backgroundImage = newImageUrl;-->
+
+<!--                            // 대표 이미지가 클릭된 CCTV와 동기화-->
+<!--                            if (cctvNum === selectedCCTV) {-->
+<!--                                const mainImage = document.getElementById('mainImage');-->
+<!--                                mainImage.style.backgroundImage = newImageUrl; // 클릭한 CCTV 이미지로 설정-->
+<!--                            }-->
+<!--                        }-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch(error => console.error('Error fetching images:', error));-->
+<!--        }-->
+
+<!--        // 클릭한 CCTV 이미지를 대표 이미지로 설정하는 함수-->
+<!--        let selectedCCTV = ''; // 현재 선택된 CCTV 번호-->
+
+<!--        function updateMainImage(cctvNum) {-->
+<!--            const mainImage = document.getElementById('mainImage');-->
+<!--            const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);-->
+
+<!--            if (cctvElement) {-->
+<!--                const imageUrl = cctvElement.style.backgroundImage; // 클릭한 CCTV 이미지-->
+<!--                mainImage.style.backgroundImage = imageUrl; // 클릭한 CCTV 이미지로 설정-->
+<!--                selectedCCTV = cctvNum; // 선택된 CCTV 업데이트-->
+<!--            }-->
+<!--        }-->
+
+<!--        setInterval(fetchLatestImages, 3000); // 3초마다 최신 이미지 가져오기-->
+<!--    </script>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            margin: 0; /* 기본 여백 제거 */-->
+<!--            font-family: 'Manrope', 'Noto Sans', sans-serif; /* 폰트 설정 */-->
+<!--            background-color: #fff; /* 배경 색상 설정 */-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            height: 100vh; /* 전체 화면 높이 사용 */-->
+<!--        }-->
+
+<!--        #mainImage {-->
+<!--            width: 100%; /* 전체 너비 사용 */-->
+<!--            height: 60vh; /* 화면의 60% 높이 사용 */-->
+<!--            background-color: #000; /* 기본 배경 색상 */-->
+<!--            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */-->
+<!--            background-position: center; /* 배경 이미지 중앙 정렬 */-->
+<!--            margin-bottom: 20px; /* CCTV 섹션과의 간격 */-->
+<!--            border-radius: 8px; /* 모서리 둥글게 */-->
+<!--        }-->
+
+<!--        .grid {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */-->
+<!--            gap: 0; /* 그리드 항목 간의 간격 제거 */-->
+<!--            width: 100%; /* 전체 너비 사용 */-->
+<!--            padding: 0; /* 그리드 패딩 제거 */-->
+<!--        }-->
+
+<!--        .cctv-frame {-->
+<!--            background-color: #333; /* CCTV 프레임 기본 색상 */-->
+<!--            aspect-ratio: 16 / 9; /* 16:9 비율 유지 */-->
+<!--            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */-->
+<!--            background-position: center; /* 배경 이미지 중앙 정렬 */-->
+<!--            cursor: pointer; /* 마우스 커서 스타일 변경 */-->
+<!--            border-radius: 8px; /* 모서리 둥글게 */-->
+<!--            transition: transform 0.2s; /* 마우스 오버 시 변환 효과 */-->
+<!--        }-->
+
+<!--        .cctv-frame:hover {-->
+<!--            transform: scale(1.05); /* 마우스 오버 시 약간 확대 */-->
+<!--        }-->
+
+<!--        .cctv-label {-->
+<!--            text-align: center; /* 텍스트 중앙 정렬 */-->
+<!--            color: #fff; /* 글자 색상 */-->
+<!--            margin-top: 5px; /* 텍스트와 CCTV 프레임 간의 간격 */-->
+<!--        }-->
+
+<!--        .log-button {-->
+<!--            position: fixed; /* 화면에 고정 */-->
+<!--            bottom: 20px; /* 아래에서의 거리 */-->
+<!--            right: 20px; /* 오른쪽에서의 거리 */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">-->
+<!--    <div class="layout-container flex h-full grow flex-col">-->
+<!--        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">-->
+<!--            <div class="flex items-center gap-4 text-[#111418]">-->
+<!--                <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">CCTV CMS</h2>-->
+<!--            </div>-->
+<!--        </header>-->
+<!--        <div class="px-40 flex flex-1 justify-center py-5">-->
+<!--            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">-->
+<!--                <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl" id="mainImage" style='background-image: url("");'>-->
+<!--                    <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">대표 이미지</h1>-->
+<!--                </div>-->
+<!--                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">-->
+<!--                    &lt;!&ndash; CCTV 섹터를 동적으로 생성 &ndash;&gt;-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-001" onclick="updateMainImage('CCTV-001')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-001</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-002" onclick="updateMainImage('CCTV-002')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-002</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-003" onclick="updateMainImage('CCTV-003')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-003</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-004" onclick="updateMainImage('CCTV-004')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-004</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-005" onclick="updateMainImage('CCTV-005')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-005</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-006" onclick="updateMainImage('CCTV-006')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-006</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-007" onclick="updateMainImage('CCTV-007')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-007</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex px-4 py-3 justify-end log-button">-->
+<!--                    <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">-->
+<!--                        <span class="truncate">Show Log</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko">-->
+<!--<head>-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />-->
+<!--    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />-->
+<!--    <title>CCTV CMS</title>-->
+<!--    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />-->
+<!--    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>-->
+<!--    <script>-->
+<!--        // CCTV 이미지 업데이트 함수-->
+<!--        function fetchLatestImages() {-->
+<!--            fetch('/api/images')-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    console.log("Fetched latest images:", data);-->
+<!--                    for (const [cctvNum, imageData] of Object.entries(data)) {-->
+<!--                        const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);-->
+<!--                        if (cctvElement) {-->
+<!--                            const newImageUrl = `url(${imageData})`;-->
+<!--                            cctvElement.style.backgroundImage = newImageUrl;-->
+
+<!--                            // 대표 이미지가 클릭된 CCTV와 동기화-->
+<!--                            if (cctvNum === selectedCCTV) {-->
+<!--                                const mainImage = document.getElementById('mainImage');-->
+<!--                                mainImage.style.backgroundImage = newImageUrl; // 클릭한 CCTV 이미지로 설정-->
+<!--                            }-->
+<!--                        }-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch(error => console.error('Error fetching images:', error));-->
+<!--        }-->
+
+<!--        // 클릭한 CCTV 이미지를 대표 이미지로 설정하는 함수-->
+<!--        let selectedCCTV = ''; // 현재 선택된 CCTV 번호-->
+
+<!--        function updateMainImage(cctvNum) {-->
+<!--            const mainImage = document.getElementById('mainImage');-->
+<!--            const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);-->
+
+<!--            if (cctvElement) {-->
+<!--                const imageUrl = cctvElement.style.backgroundImage; // 클릭한 CCTV 이미지-->
+<!--                mainImage.style.backgroundImage = imageUrl; // 클릭한 CCTV 이미지로 설정-->
+<!--                selectedCCTV = cctvNum; // 선택된 CCTV 업데이트-->
+
+<!--                // CCTV 이름을 대표 이미지 제목으로 설정-->
+<!--                const titleElement = document.getElementById('mainImageTitle');-->
+<!--                titleElement.textContent = cctvNum; // CCTV 번호를 제목으로 설정-->
+<!--            }-->
+<!--        }-->
+
+<!--        setInterval(fetchLatestImages, 3000); // 3초마다 최신 이미지 가져오기-->
+<!--    </script>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            margin: 0; /* 기본 여백 제거 */-->
+<!--            font-family: 'Manrope', 'Noto Sans', sans-serif; /* 폰트 설정 */-->
+<!--            background-color: #fff; /* 배경 색상 설정 */-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            height: 100vh; /* 전체 화면 높이 사용 */-->
+<!--        }-->
+
+<!--        #mainImage {-->
+<!--            width: 100%; /* 전체 너비 사용 */-->
+<!--            height: 60vh; /* 화면의 60% 높이 사용 */-->
+<!--            background-color: #000; /* 기본 배경 색상 */-->
+<!--            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */-->
+<!--            background-position: center; /* 배경 이미지 중앙 정렬 */-->
+<!--            margin-bottom: 20px; /* CCTV 섹션과의 간격 */-->
+<!--            border-radius: 8px; /* 모서리 둥글게 */-->
+<!--        }-->
+
+<!--        .grid {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */-->
+<!--            gap: 0; /* 그리드 항목 간의 간격 제거 */-->
+<!--            width: 100%; /* 전체 너비 사용 */-->
+<!--            padding: 0; /* 그리드 패딩 제거 */-->
+<!--        }-->
+
+<!--        .cctv-frame {-->
+<!--            background-color: #333; /* CCTV 프레임 기본 색상 */-->
+<!--            aspect-ratio: 16 / 9; /* 16:9 비율 유지 */-->
+<!--            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */-->
+<!--            background-position: center; /* 배경 이미지 중앙 정렬 */-->
+<!--            cursor: pointer; /* 마우스 커서 스타일 변경 */-->
+<!--            border-radius: 8px; /* 모서리 둥글게 */-->
+<!--            transition: transform 0.2s; /* 마우스 오버 시 변환 효과 */-->
+<!--        }-->
+
+<!--        .cctv-frame:hover {-->
+<!--            transform: scale(1.05); /* 마우스 오버 시 약간 확대 */-->
+<!--        }-->
+
+<!--        .cctv-label {-->
+<!--            text-align: center; /* 텍스트 중앙 정렬 */-->
+<!--            color: #fff; /* 글자 색상 */-->
+<!--            margin-top: 5px; /* 텍스트와 CCTV 프레임 간의 간격 */-->
+<!--        }-->
+
+<!--        .log-button {-->
+<!--            position: fixed; /* 화면에 고정 */-->
+<!--            bottom: 20px; /* 아래에서의 거리 */-->
+<!--            right: 20px; /* 오른쪽에서의 거리 */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">-->
+<!--    <div class="layout-container flex h-full grow flex-col">-->
+<!--        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">-->
+<!--            <div class="flex items-center gap-4 text-[#111418]">-->
+<!--                <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">CCTV CMS</h2>-->
+<!--            </div>-->
+<!--        </header>-->
+<!--        <div class="px-40 flex flex-1 justify-center py-5">-->
+<!--            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">-->
+<!--                <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl" id="mainImage" style='background-image: url("");'>-->
+<!--                    <h1 id="mainImageTitle" class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">대표 이미지</h1>-->
+<!--                </div>-->
+<!--                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">-->
+<!--                    &lt;!&ndash; CCTV 섹터를 동적으로 생성 &ndash;&gt;-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-001" onclick="updateMainImage('CCTV-001')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-001</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-002" onclick="updateMainImage('CCTV-002')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-002</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-003" onclick="updateMainImage('CCTV-003')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-003</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-004" onclick="updateMainImage('CCTV-004')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-004</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-005" onclick="updateMainImage('CCTV-005')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-005</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-006" onclick="updateMainImage('CCTV-006')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-006</p>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col gap-3">-->
+<!--                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-007" onclick="updateMainImage('CCTV-007')">-->
+<!--                        </div>-->
+<!--                        <p class="text-center text-sm">CCTV-007</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex px-4 py-3 justify-end log-button">-->
+<!--                    <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">-->
+<!--                        <span class="truncate">Show Log</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+    <title>CCTV CMS</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        // CCTV 이미지 업데이트 함수
+        function fetchLatestImages() {
+            fetch('/api/images')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched latest images:", data);
+                    for (const [cctvNum, imageData] of Object.entries(data)) {
+                        const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);
+                        if (cctvElement) {
+                            const newImageUrl = `url(${imageData})`;
+                            cctvElement.style.backgroundImage = newImageUrl;
+
+                            // 대표 이미지가 클릭된 CCTV와 동기화
+                            if (cctvNum === selectedCCTV) {
+                                const mainImage = document.getElementById('mainImage');
+                                mainImage.style.backgroundImage = newImageUrl; // 클릭한 CCTV 이미지로 설정
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error fetching images:', error));
+        }
+
+        // 클릭한 CCTV 이미지를 대표 이미지로 설정하는 함수
+        let selectedCCTV = ''; // 현재 선택된 CCTV 번호
+
+        function updateMainImage(cctvNum) {
+            const mainImage = document.getElementById('mainImage');
+            const cctvElement = document.querySelector(`[data-cctv-num="${cctvNum}"]`);
+
+            if (cctvElement) {
+                const imageUrl = cctvElement.style.backgroundImage; // 클릭한 CCTV 이미지
+                mainImage.style.backgroundImage = imageUrl; // 클릭한 CCTV 이미지로 설정
+                selectedCCTV = cctvNum; // 선택된 CCTV 업데이트
+
+                // CCTV 이름을 대표 이미지 제목으로 설정
+                const titleElement = document.getElementById('mainImageTitle');
+                titleElement.textContent = cctvNum; // CCTV 번호를 제목으로 설정
+            }
+        }
+
+        setInterval(fetchLatestImages, 3000); // 3초마다 최신 이미지 가져오기
+    </script>
+    <style>
+        body {
+            margin: 0; /* 기본 여백 제거 */
+            font-family: 'Manrope', 'Noto Sans', sans-serif; /* 폰트 설정 */
+            background-color: #fff; /* 배경 색상 설정 */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* 전체 화면 높이 사용 */
+        }
+
+        #mainImage {
+            width: 100%; /* 전체 너비 사용 */
+            height: 60vh; /* 화면의 60% 높이 사용 */
+            background-color: #000; /* 기본 배경 색상 */
+            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */
+            background-position: center; /* 배경 이미지 중앙 정렬 */
+            margin-bottom: 20px; /* CCTV 섹션과의 간격 */
+            border-radius: 8px; /* 모서리 둥글게 */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
+            gap: 0; /* 그리드 항목 간의 간격 제거 */
+            width: 100%; /* 전체 너비 사용 */
+            padding: 0; /* 그리드 패딩 제거 */
+        }
+
+        .cctv-frame {
+            background-color: #333; /* CCTV 프레임 기본 색상 */
+            aspect-ratio: 16 / 9; /* 16:9 비율 유지 */
+            background-size: cover; /* 배경 이미지가 프레임을 덮도록 */
+            background-position: center; /* 배경 이미지 중앙 정렬 */
+            cursor: pointer; /* 마우스 커서 스타일 변경 */
+            border-radius: 8px; /* 모서리 둥글게 */
+            transition: transform 0.2s; /* 마우스 오버 시 변환 효과 */
+        }
+
+        .cctv-frame:hover {
+            transform: scale(1.05); /* 마우스 오버 시 약간 확대 */
+        }
+
+        .cctv-label {
+            text-align: center; /* 텍스트 중앙 정렬 */
+            color: #fff; /* 글자 색상 */
+            margin-top: 5px; /* 텍스트와 CCTV 프레임 간의 간격 */
+        }
+
+        .log-button {
+            position: fixed; /* 화면에 고정 */
+            bottom: 20px; /* 아래에서의 거리 */
+            right: 20px; /* 오른쪽에서의 거리 */
+        }
+    </style>
+</head>
+<body>
+<div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
+    <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
+            <div class="flex items-center gap-4 text-[#111418]">
+                <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">CCTV CMS</h2>
+            </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl" id="mainImage" style='background-image: url("");'>
+                    <h1 id="mainImageTitle" class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">대표 이미지</h1>
+                </div>
+                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+                    <!-- CCTV 섹터를 동적으로 생성 -->
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-001" onclick="updateMainImage('CCTV-001')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-001</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-002" onclick="updateMainImage('CCTV-002')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-002</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-003" onclick="updateMainImage('CCTV-003')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-003</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-004" onclick="updateMainImage('CCTV-004')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-004</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-005" onclick="updateMainImage('CCTV-005')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-005</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-006" onclick="updateMainImage('CCTV-006')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-006</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="CCTV-007" onclick="updateMainImage('CCTV-007')">
+                        </div>
+                        <p class="text-center text-sm">CCTV-007</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl cctv-frame" data-cctv-num="Map" onclick="updateMainImage('Map')">
+                        </div>
+                        <p class="text-center text-sm">Map</p>
+                    </div>
+                </div>
+                <div class="flex px-4 py-3 justify-end log-button">
+                    <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+                        <span class="truncate">Show Log</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
