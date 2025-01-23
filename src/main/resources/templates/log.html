@@ -1,20 +1,41 @@
+
 <html>
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-            rel="stylesheet"
-            as="style"
-            onload="this.rel='stylesheet'"
-            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
-
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
     <title>Galileo Design</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        // 페이지 로드 시 로그를 가져오는 함수
+        function fetchLogs() {
+            fetch('/api/logs')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('tbody');
+                    tableBody.innerHTML = ''; // 기존 내용 삭제
+
+                    data.forEach(log => {
+                        const row = `
+                            <tr class="border-t border-t-[#dce1e5]">
+                                <td class="h-[72px] px-4 py-2 text-[#647987] text-sm font-normal leading-normal">${log.id}</td>
+                                <td class="h-[72px] px-4 py-2 text-[#647987] text-sm font-normal leading-normal">${log.cctvNum}</td>
+                                <td class="h-[72px] px-4 py-2 text-[#647987] text-sm font-normal leading-normal">${log.detectedObjects}</td>
+                                <td class="h-[72px] px-4 py-2 text-[#647987] text-sm font-normal leading-normal">${new Date(log.logTime).toLocaleString()}</td>
+                            </tr>
+                        `;
+                        tableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                })
+                .catch(error => console.error('Error fetching logs:', error));
+        }
+
+        // 페이지 로드 시 로그를 가져옵니다.
+        window.onload = fetchLogs;
+    </script>
 </head>
 <body>
-<div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col bg-white group-design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
     <div class="layout-container flex h-full grow flex-col">
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f3f4] px-10 py-3">
             <div class="flex items-center gap-4 text-[#111517]">
@@ -30,123 +51,22 @@
         </header>
         <div class="px-40 flex flex-1 justify-center py-5">
             <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-                <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#111517] tracking-light text-[32px] font-bold leading-tight min-w-72">Event Log</p></div>
-                <div class="px-4 py-3 @container">
+                <div class="flex flex-wrap justify-between gap-3 p-4">
+                    <p class="text-[#111517] tracking-light text-[32px] font-bold leading-tight min-w-72">Event Log</p>
+                </div>
+                <div class="px-4 py-3">
                     <div class="flex overflow-hidden rounded-xl border border-[#dce1e5] bg-white">
                         <table class="flex-1">
                             <thead>
                             <tr class="bg-white">
-                                <th class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 px-4 py-3 text-left text-[#111517] w-[400px] text-sm font-medium leading-normal">ID</th>
-                                <th class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 px-4 py-3 text-left text-[#111517] w-[400px] text-sm font-medium leading-normal">
-                                    CCTV Number
-                                </th>
-                                <th class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 px-4 py-3 text-left text-[#111517] w-[400px] text-sm font-medium leading-normal">
-                                    Detected Objects
-                                </th>
-                                <th class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 px-4 py-3 text-left text-[#111517] w-[400px] text-sm font-medium leading-normal">Time</th>
+                                <th class="px-4 py-3 text-left text-[#111517] text-sm font-medium leading-normal">ID</th>
+                                <th class="px-4 py-3 text-left text-[#111517] text-sm font-medium leading-normal">CCTV Number</th>
+                                <th class="px-4 py-3 text-left text-[#111517] text-sm font-medium leading-normal">Detected Objects</th>
+                                <th class="px-4 py-3 text-left text-[#111517] text-sm font-medium leading-normal">Time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">1</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-001</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">2</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-002</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">3</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-003</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">4</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-004</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">5</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-005</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">6</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-006</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">7</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-007</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">8</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-008</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">9</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-009</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
-                            <tr class="border-t border-t-[#dce1e5]">
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-120 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">10</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-240 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">CCTV-010</td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-360 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    Person, Car
-                                </td>
-                                <td class="table-98351f2c-d22c-4287-ae8b-1260f822cef2-column-480 h-[72px] px-4 py-2 w-[400px] text-[#647987] text-sm font-normal leading-normal">
-                                    2023-06-30 6:00 PM
-                                </td>
-                            </tr>
+                            <!-- 로그 데이터가 여기에 추가됩니다. -->
                             </tbody>
                         </table>
                     </div>

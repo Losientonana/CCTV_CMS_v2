@@ -1,3 +1,72 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />-->
+<!--    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />-->
+<!--    <title>Galileo Design</title>-->
+<!--    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />-->
+<!--    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>-->
+<!--    <style>-->
+<!--        /* 추가: 배경 이미지 스타일 조정 */-->
+<!--        .bg-custom {-->
+<!--            background-image: url("https://media.istockphoto.com/id/482112104/ko/%EC%82%AC%EC%A7%84/%EB%B3%B4%EC%95%88-cctv-%EC%B9%B4%EB%A9%94%EB%9D%BC%EC%97%90-office-building.jpg?s=612x612&w=0&k=20&c=8N5sA0wrwAkv7WnPUxIbsfIuuQR7G7Xe5eKCL4arpBk="); /* 원하는 이미지 URL로 변경 */-->
+<!--            background-size: cover; /* 이미지 크기를 컨테이너에 맞게 조정 */-->
+<!--            background-position: center; /* 이미지를 중앙에 배치 */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+
+<!--<div class="relative flex min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Manrope, "Noto Sans", sans-serif;'>-->
+<!--    <div class="flex flex-1 justify-center items-center">-->
+<!--        <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5">-->
+<!--            <div class="@container">-->
+<!--                <div class="@[612px]:px-4 @[430px]:py-3">-->
+<!--                    <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white @[480px]:rounded-xl min-h-[218px] bg-custom"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <h1 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">Log in to your account</h1>-->
+<!--            <form action="#" method="post" class="flex flex-col max-w-[480px] gap-4 px-4 py-3">-->
+<!--                <label class="flex flex-col">-->
+<!--                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Username</p>-->
+<!--                    <input-->
+<!--                            placeholder="Enter your username"-->
+<!--                            class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] focus:outline-0 focus:ring-0 border border-[#dce0e5] bg-white focus:border-[#dce0e5] h-14 placeholder:text-[#637588] p-[15px] text-base font-normal leading-normal"-->
+<!--                            name="username" required />-->
+<!--                </label>-->
+<!--                <label class="flex flex-col">-->
+<!--                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Password</p>-->
+<!--                    <input-->
+<!--                            placeholder="Enter your password"-->
+<!--                            class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] focus:outline-0 focus:ring-0 border border-[#dce0e5] bg-white focus:border-[#dce0e5] h-14 placeholder:text-[#637588] p-[15px] text-base font-normal leading-normal"-->
+<!--                            name="password" required />-->
+<!--                </label>-->
+<!--                <div class="flex justify-center">-->
+<!--                    <button-->
+<!--                            type="submit"-->
+<!--                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em] w-full">-->
+<!--                        <span class="truncate">Log in</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="flex justify-center">-->
+<!--                    &lt;!&ndash;-->
+<!--                    <button-->
+<!--                            type="button"-->
+<!--                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-transparent text-[#111418] text-sm font-bold leading-normal tracking-[0.015em] w-full">-->
+<!--                        <span class="truncate">Forgot password?</span>-->
+<!--                    </button>-->
+<!--                    &ndash;&gt;-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,27 +76,19 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
-        /* 추가: 배경 이미지 스타일 조정 */
         .bg-custom {
-            background-image: url("https://media.istockphoto.com/id/482112104/ko/%EC%82%AC%EC%A7%84/%EB%B3%B4%EC%95%88-cctv-%EC%B9%B4%EB%A9%94%EB%9D%BC%EC%97%90-office-building.jpg?s=612x612&w=0&k=20&c=8N5sA0wrwAkv7WnPUxIbsfIuuQR7G7Xe5eKCL4arpBk="); /* 원하는 이미지 URL로 변경 */
-            background-size: cover; /* 이미지 크기를 컨테이너에 맞게 조정 */
-            background-position: center; /* 이미지를 중앙에 배치 */
+            background-image: url("https://media.istockphoto.com/id/482112104/ko/%EC%82%AC%EC%A7%84/%EB%B3%B4%EC%95%88-cctv-%EC%B9%B4%EB%A9%94%EB%9D%BC%EC%97%90-office-building.jpg?s=612x612&w=0&k=20&c=8N5sA0wrwAkv7WnPUxIbsfIuuQR7G7Xe5eKCL4arpBk=");
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
 <body>
-
-
 <div class="relative flex min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Manrope, "Noto Sans", sans-serif;'>
     <div class="flex flex-1 justify-center items-center">
         <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5">
-            <div class="@container">
-                <div class="@[612px]:px-4 @[430px]:py-3">
-                    <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white @[480px]:rounded-xl min-h-[218px] bg-custom"></div>
-                </div>
-            </div>
             <h1 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">Log in to your account</h1>
-            <form action="#" method="post" class="flex flex-col max-w-[480px] gap-4 px-4 py-3">
+            <form id="loginForm" class="flex flex-col max-w-[480px] gap-4 px-4 py-3">
                 <label class="flex flex-col">
                     <p class="text-[#111418] text-base font-medium leading-normal pb-2">Username</p>
                     <input
@@ -38,6 +99,7 @@
                 <label class="flex flex-col">
                     <p class="text-[#111418] text-base font-medium leading-normal pb-2">Password</p>
                     <input
+                            type="password"
                             placeholder="Enter your password"
                             class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] focus:outline-0 focus:ring-0 border border-[#dce0e5] bg-white focus:border-[#dce0e5] h-14 placeholder:text-[#637588] p-[15px] text-base font-normal leading-normal"
                             name="password" required />
@@ -49,18 +111,39 @@
                         <span class="truncate">Log in</span>
                     </button>
                 </div>
-                <div class="flex justify-center">
-                    <!--
-                    <button
-                            type="button"
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-transparent text-[#111418] text-sm font-bold leading-normal tracking-[0.015em] w-full">
-                        <span class="truncate">Forgot password?</span>
-                    </button>
-                    -->
-                </div>
+                <div id="errorMessage" class="text-red-500 mt-4 text-center"></div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.querySelector('input[name="username"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('로그인 실패');
+                }
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/home'; // 로그인 후 홈 페이지로 이동
+            })
+            .catch(error => {
+                document.getElementById('errorMessage').innerText = error.message;
+            });
+    });
+</script>
 </body>
 </html>
